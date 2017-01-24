@@ -13,3 +13,4 @@ A React-based front-end to connect to base-mongo-express. Part of a training rep
 2. create-react-app base files
 3. Stripped create-react-app files to minimum, updated formatting to match my styles
 4. Added create-react-app-with-sass for sass support.
+5. Added React Router 4. `npm install -S react-router@next`
