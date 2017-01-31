@@ -9,8 +9,7 @@ A React-based front-end to connect to base-mongo-express. Part of a training rep
 
 *Note that create-react-app creates a directory - consider this before creating a git repository.*
 
-1. Readme, .gitignore, .editorconfig
-2. create-react-app base files
-3. Stripped create-react-app files to minimum, updated formatting to match my styles
-4. Added create-react-app-with-sass for sass support.
-5. Added React Router 4. `npm install -S react-router@next`
+1. Readme, .gitignore, .editorconfig, create-react-app base files, stripped create-react-app files to minimum, updated formatting to match my styles
+2. Added create-react-app-with-sass for sass support.
+3. Added Redux with simple reducer for hard-coded items.
+4. Added React Router 4 (beta) and initial route handling.
