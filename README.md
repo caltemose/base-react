@@ -13,3 +13,4 @@ A React-based front-end to connect to base-mongo-express. Part of a training rep
 2. Added create-react-app-with-sass for sass support.
 3. Added Redux with simple reducer for hard-coded items.
 4. Added React Router 4 (beta) and initial route handling.
+5. App now faking loading of items through AJAX by dispatching the load request and after a delay dispatching the load complete action.
