@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { fetchItemsPending, fetchItemsComplete, fetchItemsError } from '../store/actions/actions'
 import Home from '../components/Home'
 import NoMatch from '../components/NoMatch'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 import Items from '../components/Items'
 import FlashMessage from '../components/FlashMessage'
 
@@ -27,7 +29,7 @@ class App extends Component {
         return (
             <Router>
                 <div>
-                    {/* Header Component */}
+                    <Header />
 
                     <Switch>
                         <Route path="/" exact component={Home} />
@@ -35,7 +37,7 @@ class App extends Component {
                         <Route component={NoMatch} />
                     </Switch>
 
-                    {/* Footer Component */}
+                    <Footer />
 
                     {this.props.items.itemsLoading &&
                         <FlashMessage msg={`loading items with ${delay}ms delay`} />}
