@@ -16,3 +16,4 @@ A React-based front-end to connect to base-mongo-express. Part of a training rep
 5. App now faking loading of items through AJAX by dispatching the load request and after a delay dispatching the load complete action.
 6. Created /items route and component.
 7. Added header and footer components and updated styling.
+8. Added redux-thunk; items now being fetched via AJAX properly. (note that because we added the proxy definition to the package.json file, you'll need to stop your dev server and restart it.)
