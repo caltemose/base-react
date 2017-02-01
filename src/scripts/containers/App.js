@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { fetchItemsPending, fetchItemsComplete, fetchItemsError } from '../store/actions/actions'
 import Home from '../components/Home'
 import NoMatch from '../components/NoMatch'
+import Items from '../components/Items'
 import FlashMessage from '../components/FlashMessage'
 
-const delay = 2000
+const delay = 1000
 
 class App extends Component {
 
@@ -30,23 +31,9 @@ class App extends Component {
 
                     <Switch>
                         <Route path="/" exact component={Home} />
-                        {/* <Route path="/items" component={Items} /> */}
+                        <Route path="/items" component={Items} items={items} />
                         <Route component={NoMatch} />
                     </Switch>
-
-                    {/* this will be removed once we build the /items components */}
-                    <h2>
-                        Items
-                        <small>(just to make sure Redux is still working)</small>
-                    </h2>
-
-                    <ul>
-                        {items.map(item => (
-                            <li key={item._id}>
-                                {item.name}
-                            </li>
-                        ))}
-                    </ul>
 
                     {/* Footer Component */}
 
