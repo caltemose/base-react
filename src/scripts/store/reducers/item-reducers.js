@@ -1,16 +1,40 @@
+import {
+    FETCH_ITEMS_PENDING,
+    FETCH_ITEMS_ERROR,
+    FETCH_ITEMS_COMPLETE
+} from '../actions/actions'
+
 const defaultState = {
-    // ultimately will hold raw data from Mongo but for now, hard-code
-    // some items to get started
-    items: [
-        { name: "First", _id: "1" },
-        { name: "Second", _id: "2" }
-    ]
+    items: [],
+    itemsLoading: false,
+    itemsError: null
 }
 
 // the reducer function for items
 const items = (state = defaultState, action) => {
-    console.log(action.type)
-    return state
+    switch (action.type) {
+        case FETCH_ITEMS_PENDING:
+            return {
+                ...state,
+                itemsLoading: true,
+                itemsError: null
+            }
+        case FETCH_ITEMS_ERROR:
+            return {
+                ...state,
+                itemsLoading: false,
+                itemsError: action.payload
+            }
+        case FETCH_ITEMS_COMPLETE:
+            return {
+                ...state,
+                items: [ ...action.payload ],
+                itemsLoading: false,
+                itemsError: null,
+            }
+        default:
+            return state
+    }
 }
 
 export default items
