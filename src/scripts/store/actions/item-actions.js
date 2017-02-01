@@ -1,35 +1,71 @@
+import axios from 'axios'
+import { getErrorFromErrorResponse } from '../store-helpers'
+
 export const FETCH_ITEMS_PENDING = 'FETCH_ITEMS_PENDING'
 export const FETCH_ITEMS_COMPLETE = 'FETCH_ITEMS_COMPLETE'
 export const FETCH_ITEMS_ERROR = 'FETCH_ITEMS_ERROR'
 
-export const fetchItemsPending = () => ({
+export const CREATE_ITEM_PENDING = 'CREATE_ITEM_PENDING'
+export const CREATE_ITEM_COMPLETE = 'CREATE_ITEM_COMPLETE'
+export const CREATE_ITEM_ERROR = 'CREATE_ITEM_ERROR'
+
+
+const fetchItemsPending = () => ({
     type: FETCH_ITEMS_PENDING
 })
 
-export const fetchItemsComplete = (items) => ({
+const fetchItemsComplete = (items) => ({
     type: FETCH_ITEMS_COMPLETE,
     payload: items
 })
 
-export const fetchItemsError = () => ({
+const fetchItemsError = (msg) => ({
     type: FETCH_ITEMS_ERROR,
-    payload: "There was an error loading the items."
+    payload: msg
 })
 
 export const fetchItems = () => dispatch => {
     dispatch(fetchItemsPending())
-    return fetch('/api/items')
+
+    return axios.get('/api/items')
         .then(response => {
-            return response.json()
-        })
-        .then(items => {
-            return dispatch(fetchItemsComplete(items))
+            return dispatch(fetchItemsComplete(response.data))
         })
         .catch(error => {
-            console.log(error)
-            // currently not using the real error in the UI but we certainly
-            // could improve the user feedback by providing more specific
-            // text than what's hard-coded in fetchItemsError()
-            return dispatch(fetchItemsError())
+            const msg = getErrorFromErrorResponse(error, 'Could not retrieve items from API')
+            return dispatch(fetchItemsError(msg))
+        })
+}
+
+const createItemPending = () => ({
+    type: CREATE_ITEM_PENDING
+})
+
+const createItemComplete = (item) => ({
+    type: CREATE_ITEM_COMPLETE,
+    payload: item
+})
+
+const createItemError = (error) => ({
+    type: CREATE_ITEM_ERROR,
+    payload: error
+})
+
+export const requestCreateItem = (name) => dispatch => {
+    dispatch(createItemPending())
+
+    let newItem = { name }
+
+    return axios.post('/api/items', newItem)
+        .then(response => {
+            newItem = {
+                ...newItem,
+                _id: response.data._id
+            }
+            return dispatch(createItemComplete(newItem))
+        })
+        .catch(error => {
+            const msg = getErrorFromErrorResponse(error, 'Item could not be created')
+            return dispatch(createItemError(msg))
         })
 }
