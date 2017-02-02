@@ -19,7 +19,7 @@ class CreateItemForm extends Component {
     }
 
     render () {
-        const classes = this.props.creatingItem ? 'create-item-form disabled' : 'create-item-form'
+        const classes = this.props.creatingItem ? 'item-form disabled' : 'item-form'
         return (
             <form className={classes} onSubmit={this.handleSubmit}>
                 {this.props.createItemError &&

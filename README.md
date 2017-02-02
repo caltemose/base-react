@@ -18,3 +18,4 @@ A React-based front-end to connect to base-mongo-express. Part of a training rep
 7. Added header and footer components and updated styling.
 8. Added redux-thunk; items now being fetched via AJAX properly. (note that because we added the proxy definition to the package.json file, you'll need to stop your dev server and restart it.)
 9. Added container and component for creating items - create item form added to /items route. Also switched from using native `fetch` to `axios` to simplify error handling.
+10. Refactored so Items listing uses editable items components that use a base ItemForm component. Refactored create items form to use the same ItemForm component. Still to do: disabling forms during API actions and showing errors when API actions fail.

@@ -1,18 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { requestEditItem } from '../store/actions/actions'
 import EditableItemsList from '../components/EditableItemsList'
 
 const EditableItems = ({ items }) => (
-    <EditableItemsList
-        items={items}
-        requestEditItem={requestEditItem} />
+    <EditableItemsList items={items} />
 )
 
 const mapStateToProps = (state) => ({
-    items: state.items
+    items: state.items.items
 })
 
-const mapDispatchToProps = { requestEditItem }
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditableItems)
+export default connect(mapStateToProps)(EditableItems)

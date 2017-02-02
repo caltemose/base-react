@@ -1,13 +1,14 @@
 // this is a dumping ground because I'm too lazy to deal with properly
 // organizing my css right now. later...
 
-.create-item-form
-    margin: 2em 0
-    padding-top: 1em
-    border-top: 1px solid #ddd
-
+.item-form
+    margin: 1em 0
     &.disabled
         opacity: 0.25
+
+    input
+        display: inline-block
+        margin-right: 0.5em
 
 .form-message
     display: block
@@ -18,3 +19,9 @@
     &.error
         background-color: $errorColor
         color: white
+
+.create-item
+    margin-top: 2em
+
+    > h3
+        margin: 0 0 0.25em

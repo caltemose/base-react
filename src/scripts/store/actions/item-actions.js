@@ -100,8 +100,10 @@ const editItemError = (error) => ({
     payload: error
 })
 
-export const requestEditItem = (item) => dispatch => {
+export const requestEditItem = (_id, name) => dispatch => {
     dispatch(editItemPending())
+
+    const item = { _id, name }
 
     return axios.put('/api/items', item)
         .then(response => {
