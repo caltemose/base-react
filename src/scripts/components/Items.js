@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import CreateItem from '../containers/CreateItem'
+import EditableItems from '../containers/EditableItems'
 
 const Items = ({ items }) => (
     <main>
@@ -11,6 +12,8 @@ const Items = ({ items }) => (
                 </li>
             ))}
         </ul>
+
+        <EditableItems />
 
         <CreateItem />
 

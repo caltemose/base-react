@@ -1,14 +1,13 @@
 import axios from 'axios'
 import { getErrorFromErrorResponse } from '../store-helpers'
 
+// ---------------------------------------------------------------- //
+// Actions for Getting Items from Database
+// ---------------------------------------------------------------- //
+
 export const FETCH_ITEMS_PENDING = 'FETCH_ITEMS_PENDING'
 export const FETCH_ITEMS_COMPLETE = 'FETCH_ITEMS_COMPLETE'
 export const FETCH_ITEMS_ERROR = 'FETCH_ITEMS_ERROR'
-
-export const CREATE_ITEM_PENDING = 'CREATE_ITEM_PENDING'
-export const CREATE_ITEM_COMPLETE = 'CREATE_ITEM_COMPLETE'
-export const CREATE_ITEM_ERROR = 'CREATE_ITEM_ERROR'
-
 
 const fetchItemsPending = () => ({
     type: FETCH_ITEMS_PENDING
@@ -36,6 +35,15 @@ export const fetchItems = () => dispatch => {
             return dispatch(fetchItemsError(msg))
         })
 }
+
+
+// ---------------------------------------------------------------- //
+// Actions for Creating New Items in the Database
+// ---------------------------------------------------------------- //
+
+export const CREATE_ITEM_PENDING = 'CREATE_ITEM_PENDING'
+export const CREATE_ITEM_COMPLETE = 'CREATE_ITEM_COMPLETE'
+export const CREATE_ITEM_ERROR = 'CREATE_ITEM_ERROR'
 
 const createItemPending = () => ({
     type: CREATE_ITEM_PENDING
@@ -67,5 +75,40 @@ export const requestCreateItem = (name) => dispatch => {
         .catch(error => {
             const msg = getErrorFromErrorResponse(error, 'Item could not be created')
             return dispatch(createItemError(msg))
+        })
+}
+
+// ---------------------------------------------------------------- //
+// Actions for Editing Items in the Database
+// ---------------------------------------------------------------- //
+
+export const EDIT_ITEM_PENDING = 'EDIT_ITEM_PENDING'
+export const EDIT_ITEM_COMPLETE = 'EDIT_ITEM_COMPLETE'
+export const EDIT_ITEM_ERROR = 'EDIT_ITEM_ERROR'
+
+const editItemPending = () => ({
+    type: EDIT_ITEM_PENDING
+})
+
+const editItemComplete = (item) => ({
+    type: EDIT_ITEM_COMPLETE,
+    payload: item
+})
+
+const editItemError = (error) => ({
+    type: EDIT_ITEM_ERROR,
+    payload: error
+})
+
+export const requestEditItem = (item) => dispatch => {
+    dispatch(editItemPending())
+
+    return axios.put('/api/items', item)
+        .then(response => {
+            return dispatch(editItemComplete(item))
+        })
+        .catch(error => {
+            const msg = getErrorFromErrorResponse(error, 'Item could not be edited')
+            return dispatch(editItemError(msg))
         })
 }
