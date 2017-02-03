@@ -2,10 +2,7 @@
 
 A React-based front-end to connect to base-mongo-express. Part of a training repository collection. The API/backend is in the [base-mongo-express repository](https://github.com/caltemose/base-mongo-express).
 
-## Branches
-
-
-## Sequence Notes
+## Branch Notes
 
 *Note that create-react-app creates a directory - consider this before creating a git repository.*
 
@@ -19,3 +16,4 @@ A React-based front-end to connect to base-mongo-express. Part of a training rep
 8. Added redux-thunk; items now being fetched via AJAX properly. (note that because we added the proxy definition to the package.json file, you'll need to stop your dev server and restart it.)
 9. Added container and component for creating items - create item form added to /items route. Also switched from using native `fetch` to `axios` to simplify error handling.
 10. Refactored so Items listing uses editable items components that use a base ItemForm component. Refactored create items form to use the same ItemForm component. Still to do: disabling forms during API actions and showing errors when API actions fail.
+11. Refactored ItemForm component to be more generic and updated EditableItem and CreateItem accordingly. Disabled state and error state functional for CreateItem usage but not for ItemForm which requires enhancing the Redux code to provide data for items being saved and possessing errors (from API calls). NOTE: To help test disabled state of the ItemForm, I added the sleep package to the API repo on the `/api/items` POST route to delay the response since without a delay the request happens so fast you cannot easily test the disabled state.

@@ -1,65 +1,59 @@
 import React, { Component, PropTypes } from 'react'
+import classnames from 'classnames'
 
 // TODO empty the input when onCreateItem succeeds
-// TODO add disabling to form during API request to create/edit
-// TODO add error display when API calls fail
 
 class ItemForm extends Component {
     static propTypes = {
-        item: PropTypes.object,
-        onEditItem: PropTypes.func,
-        onCreateItem: PropTypes.func
+        defaultValue: PropTypes.string,
+        onSubmit: PropTypes.func.isRequired,
+        error: PropTypes.string,
+        disabled: PropTypes.bool,
+        buttonText: PropTypes.string
+    }
+
+    static defaultProps = {
+        defaultValue: '',
+        disabled: false,
+        buttonText: 'Submit'
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
-
-        if (this.props.item && this.props.onEditItem) {
-            this.props.onEditItem(this.props.item._id, this.input.value)
-
-        } else if (this.props.onCreateItem) {
-            this.props.onCreateItem(this.input.value)
-        }
+        this.props.onSubmit(this.input.value)
     }
 
     render () {
-        const { item, onEditItem, onCreateItem } = this.props
+        const {
+            defaultValue,
+            error,
+            disabled,
+            buttonText
+        } = this.props
 
-        // eject if props are missing
-        // TODO can this kind of optional setup be handled by PropTypes?
-        if (!item && !onEditItem && !onCreateItem) return
+        const formClasses = classnames({
+            'item-form': true,
+            'disabled': disabled
+        })
 
-        // handle differences between create/edit modes
-        // TODO input/conditionals below can be optimized to be DRYer
-        let input, buttonText
-        if (item && onEditItem) {
-            input = <input
-                type="text"
-                placeholder="item name here"
-                size="20"
-                defaultValue={item.name}
-                ref={node => this.input = node} />
-            buttonText = "Edit Item"
+        const labelClasses = classnames({'error': error})
 
-        } else if (onCreateItem) {
-            input = <input
-                type="text"
-                placeholder="item name here"
-                size="20"
-                ref={node => this.input = node} />
-            buttonText = "Create Item"
-        }
-
-        if ((item && onEditItem) || onCreateItem) {
-            return (
-                <form className='item-form' onSubmit={this.handleSubmit}>
-                    <label>
-                        {input}
-                    </label>
-                    <button type="submit">{buttonText}</button>
-                </form>
-            )
-        }
+        return (
+            <form className={formClasses} onSubmit={this.handleSubmit}>
+                <label className={labelClasses}>
+                    <input
+                        type="text"
+                        placeholder="item name here"
+                        size="25"
+                        defaultValue={defaultValue}
+                        ref={node => this.input = node}
+                    />
+                </label>
+                <button type="submit">{buttonText}</button>
+                {error &&
+                    <span className="input-message error">{error}</span>}
+            </form>
+        )
     }
 }
 
