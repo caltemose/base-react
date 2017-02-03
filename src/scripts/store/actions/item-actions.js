@@ -86,8 +86,9 @@ export const EDIT_ITEM_PENDING = 'EDIT_ITEM_PENDING'
 export const EDIT_ITEM_COMPLETE = 'EDIT_ITEM_COMPLETE'
 export const EDIT_ITEM_ERROR = 'EDIT_ITEM_ERROR'
 
-const editItemPending = () => ({
-    type: EDIT_ITEM_PENDING
+const editItemPending = (_id) => ({
+    type: EDIT_ITEM_PENDING,
+    payload: _id
 })
 
 const editItemComplete = (item) => ({
@@ -95,13 +96,13 @@ const editItemComplete = (item) => ({
     payload: item
 })
 
-const editItemError = (error) => ({
+const editItemError = (_id, error) => ({
     type: EDIT_ITEM_ERROR,
-    payload: error
+    payload: { _id, error }
 })
 
 export const requestEditItem = (_id, name) => dispatch => {
-    dispatch(editItemPending())
+    dispatch(editItemPending(_id))
 
     const item = { _id, name }
 
@@ -111,6 +112,6 @@ export const requestEditItem = (_id, name) => dispatch => {
         })
         .catch(error => {
             const msg = getErrorFromErrorResponse(error, 'Item could not be edited')
-            return dispatch(editItemError(msg))
+            return dispatch(editItemError(_id, msg))
         })
 }

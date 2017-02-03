@@ -16,4 +16,12 @@ A React-based front-end to connect to base-mongo-express. Part of a training rep
 8. Added redux-thunk; items now being fetched via AJAX properly. (note that because we added the proxy definition to the package.json file, you'll need to stop your dev server and restart it.)
 9. Added container and component for creating items - create item form added to /items route. Also switched from using native `fetch` to `axios` to simplify error handling.
 10. Refactored so Items listing uses editable items components that use a base ItemForm component. Refactored create items form to use the same ItemForm component. Still to do: disabling forms during API actions and showing errors when API actions fail.
-11. Refactored ItemForm component to be more generic and updated EditableItem and CreateItem accordingly. Disabled state and error state functional for CreateItem usage but not for ItemForm which requires enhancing the Redux code to provide data for items being saved and possessing errors (from API calls). NOTE: To help test disabled state of the ItemForm, I added the sleep package to the API repo on the `/api/items` POST route to delay the response since without a delay the request happens so fast you cannot easily test the disabled state.
+11. Refactored ItemForm component to be more generic and updated EditableItem and CreateItem accordingly. Disabled state and error state functional for CreateItem usage but not for ItemForm which requires enhancing the Redux code to provide data for items being saved and possessing errors (from API calls). NOTE: To help test disabled state of the ItemForm, I added the [sleep package](https://www.npmjs.com/package/sleep) to the API repo on the `/api/items` POST route to delay the response since without a delay the request happens so fast you cannot easily test the disabled state.
+12. Updated edit-item Redux actions and reducers so EditableItem form can handle disabling (when item is being saved) and error display (when item update API calls return errors).
+
+## Next Steps
+
+- Determine solution for deleting items.
+- Determine solution to empty the ItemForm after a new item is created.
+- Determine solution to re-apply the initial value to ItemForm if an attempt is made to save the item with an empty value.
+- Consider changing data structure to use byId/allIds pattern [see Redux docs on normalizing state](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html)

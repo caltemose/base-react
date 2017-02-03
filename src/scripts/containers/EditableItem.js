@@ -13,6 +13,8 @@ const EditableItem = ({ item, requestEditItem }) => {
             defaultValue={item.name}
             onSubmit={handleSubmit}
             buttonText="Edit Item"
+            error={item.error}
+            disabled={item.pending}
         />
     )
 }

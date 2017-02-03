@@ -4,13 +4,52 @@ import {
     FETCH_ITEMS_COMPLETE,
     CREATE_ITEM_PENDING,
     CREATE_ITEM_ERROR,
-    CREATE_ITEM_COMPLETE
+    CREATE_ITEM_COMPLETE,
+    EDIT_ITEM_PENDING,
+    EDIT_ITEM_COMPLETE,
+    EDIT_ITEM_ERROR
+
 } from '../actions/actions'
 
 const defaultState = {
     items: [],
     itemsLoading: false,
     itemsError: null
+}
+
+// the reducer function for an item
+const item = (state = {}, action) => {
+    switch (action.type) {
+        case EDIT_ITEM_PENDING:
+            if (state._id !== action.payload) {
+                return state
+            }
+            return {
+                ...state,
+                pending: true
+            }
+        case EDIT_ITEM_ERROR:
+            if (state._id !== action.payload._id) {
+                return state
+            }
+            return {
+                ...state,
+                pending: false,
+                error: action.payload.error
+            }
+        case EDIT_ITEM_COMPLETE:
+            if (state._id !== action.payload._id) {
+                return state
+            }
+            return {
+                ...action.payload,
+                pending: false,
+                error: null
+            }
+
+        default:
+            return state
+    }
 }
 
 // the reducer function for items
@@ -59,9 +98,73 @@ const items = (state = defaultState, action) => {
                 createItemError: null
             }
 
+        case EDIT_ITEM_PENDING:
+        case EDIT_ITEM_COMPLETE:
+        case EDIT_ITEM_ERROR:
+            return {
+                ...state,
+                items: state.items.map(i => item(i, action))
+            }
+
         default:
             return state
     }
 }
 
 export default items
+
+// comment out everything below to disable testing
+/*
+import expect from 'expect'
+
+const tests = () => {
+    expect(items(defaultState, { type: FETCH_ITEMS_PENDING }))
+        .toEqual({
+            items: [],
+            itemsLoading: true,
+            itemsError: null
+        })
+
+    expect(items(defaultState, { type: FETCH_ITEMS_ERROR, payload: "Error!" }))
+        .toEqual({
+            items: [],
+            itemsLoading: false,
+            itemsError: "Error!"
+        })
+
+    expect(items(defaultState, { type: FETCH_ITEMS_COMPLETE, payload: [1, 2, 3] }))
+        .toEqual({
+            items: [1, 2, 3],
+            itemsLoading: false,
+            itemsError: null
+        })
+
+    expect(items(defaultState, { type: CREATE_ITEM_PENDING }))
+        .toEqual({
+            ...defaultState,
+            creatingItem: true,
+            createItemError: null
+        })
+
+    expect(items(defaultState, { type: CREATE_ITEM_ERROR, payload: "Item could not be created" }))
+        .toEqual({
+            ...defaultState,
+            creatingItem: false,
+            createItemError: "Item could not be created"
+        })
+
+    const newItem = { _id: "1000000", name: "Tester" }
+
+    expect(items(defaultState, { type: CREATE_ITEM_COMPLETE, payload: newItem }))
+        .toEqual({
+            ...defaultState,
+            items: [ newItem ],
+            creatingItem: false,
+            createItemError: null
+        })
+
+    console.log('item-reducers passed all tests')
+}
+
+tests()
+*/
