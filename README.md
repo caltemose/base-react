@@ -6,6 +6,8 @@ A React-based front-end to connect to base-mongo-express. Part of a training rep
 
 *Note that create-react-app creates a directory - consider this before creating a git repository.*
 
+The numbers below correspond to branch names (ie, Note 1 corresponds to branch 001-create-react-app-base).
+
 1. Readme, .gitignore, .editorconfig, create-react-app base files, stripped create-react-app files to minimum, updated formatting to match my styles
 2. Added create-react-app-with-sass for sass support.
 3. Added Redux with simple reducer for hard-coded items.
