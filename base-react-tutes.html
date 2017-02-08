@@ -1,0 +1,243 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>base-react tutes</title>
+    <style type="text/css">
+        body { font-family: sans-serif; }
+        main {
+            display: block;
+            margin: 0 auto 2em;
+            width: 100%;
+            max-width: 42em;
+        }
+        section {
+            display: block;
+        }
+        ol {
+            margin: 0;
+            padding: 0 0 0 1em;
+        }
+        li {
+            margin-bottom: 0.25em;
+        }
+        h4 {
+            margin-bottom: 0;
+        }
+        h4 + p {
+            margin-top: 0.25em;
+        }
+        p {
+            line-height: 125%;
+        }
+        code {
+            padding: 0 0.25em;
+            background-color: rgb(240, 240, 255);
+        }
+        a {
+            padding: 0 0.25em;
+        }
+        a:hover {
+            background-color: rgb(240, 240, 255);
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <h1>React CRUD Walkthrough</h1>
+
+    <nav>
+        <a href="#overview">Overview</a> |
+        <a href="#api">API</a> |
+        <a href="#react">React App</a> |
+        <a href="https://github.com/caltemose/base-express-mongo">API Repo</a> |
+        <a href="https://github.com/caltemose/base-react">React Repo</a>
+    </nav>
+
+    <section>
+        <h2>Overview</h2>
+
+        <p>This is a walkthrough/tutorial for helping developers understand how to build a simple CRUD application (Create, Read, Update, Delete) with a React-based front-end and a Node/Mongo-based API.</p>
+
+        <p>I started this walkthrough because I've seen developers struggle a bit with using Redux in React and organizing components well in real world projects. My main goal here is to create a front-end and an API that are kept simple enough for junior developers to understand but still manage to be useful for more senior devs learning to build applications like this one. I also wanted to tackle some of the issues that are left out of many tutorials and examples that introduce developers to React/Redux/etc.</p>
+
+        <p>There are two repos for this project and each one uses numbered branches to walk through each significant step of code development.</p>
+
+        <p><strong>API:</strong> The API uses Node with Express for the web server and MongoDB as data storage. The data object we'll be using to get rolling is extremely simple - it has only the <code>_id</code> property that Mongo generates and a <code>name</code> property. The main route is <code>/items</code> and it supports the four HTTP verbs needed for the CRUD operations (POST, GET, PUT, DELETE) to modify the collection of items. The purpose of this tutorial is mostly to focus on the front-end which is why the items data structure is kept so simple. The API tutorial is more of a "dip your toes in the water" than a deep dive.</p>
+
+        <p><strong>React:</strong> The front-end is a React application that uses React Router 4 (in beta as of this writing) and Redux. The application allows the user to view items, create new items and update and delete existing items.</p>
+
+        <ul>
+            <li>
+                API Repository:
+                <a href="https://github.com/caltemose/base-express-mongo">https://github.com/caltemose/base-express-mongo</a>
+            </li>
+            <li>
+                Front-end/React Repository:
+                <a href="https://github.com/caltemose/base-react">https://github.com/caltemose/base-react</a>
+            </li>
+        </ul>
+
+        <p>For both repos, run <code>npm start</code> to fire up the server.</p>
+    </section>
+
+    <section>
+        <h2>API</h2>
+
+        <p>Before you get started with this repo, you'll want to make sure you have Node and MongoDB installed and running. The API uses a database called <code>base-mongo-express</code>. You can either create a database with that name or use a different name and edit the database name in the repo code in <code>server.js</code>:</p>
+
+        <p><code>mongoUrl: 'mongodb://localhost/base-mongo-express'</code></p>
+
+        <h3>Your Approach</h3>
+
+        <p>If learning some basic Node/Mongo is something you're interested in, you can follow the branch sequence for this repo to learn how to build a basic API. If you are only interested in the React side, you can clone this repo, run it and ignore it after that. Just note that if you do not edit this repo you will be limited to the simple data structure of the <code>item</code> noted in the overview for this tutorial.</p>
+
+        <h3>Branches / Stepping Through Code</h3>
+
+        <ol>
+            <li>
+                <h4>001-basic-server</h4>
+                <p>This branch sets up a very simple Express server with a single index route. At this point everything lives in a single file.</p>
+            </li>
+            <li>
+                <h4>002-split-routing</h4>
+                <p>In this branch, routing has moved out into its own folder to prepare for more complex routing and keep files reasonably modular. There are now two routes, <code>/</code> and <code>/api</code> &mdash; both routes just return simple text to show they are working.</p>
+            </li>
+            <li>
+                <h4>003-nodemon</h4>
+                <p>Having to stop and restart the Node server every time we make a change is lame so we add <code>Nodemon</code> to handle this for us anytime we change <code>server.js</code>.</p>
+            </li>
+            <li>
+                <h4>004-error-handling</h4>
+                <p>This branch adds basic error handling for unknown routes and server errors (500s).</p>
+            </li>
+            <li>
+                <h4>005-body-parser</h4>
+                <p>For handling data attached to POST, PUT and DELETE requests we'll need the <code>body-parser</code> package. We set it up here to handle JSON data.</p>
+            </li>
+            <li>
+                <h4>006-items-route</h4>
+                <p>This branch adds the <code>/api/items</code> GET route and returns a hard-coded list of items purely for testing.</p>
+            </li>
+            <li>
+                <h4>007-mongo-connect</h4>
+                <p>This branch adds the <a href="http://mongoosejs.com"><code>mongoose</code></a> package to handle the connection to Mongo and eventual database commands to come in later branches. On server startup we're now connecting to Mongo.</p>
+            </li>
+            <li>
+                <h4>008-getting-items</h4>
+                <p>In this branch the GET route for <code>/api/items</code> is updated to return all documents in the items collection in the Mongo database.</p>
+            </li>
+            <li>
+                <h4>009-create-item</h4>
+                <p>This branchs adds the POST handling for <code>/api/items</code> so we can create new items. This route expects only a <code>name</code> property in the request to create the new item. To test this (and editing and deleting items) you'll need to use <code>curl</code> on the command line or Postman or some other useful network request tool. I use Postman since it lets me save the URLs for testing through the project.</p>
+            </li>
+            <li>
+                <h4>010-update-item</h4>
+                <p>In this branch we add the PUT handling for <code>/api/items</code> so we can edit items. This route expects the <code>name</code> property as well as the <code>_id</code> property of the item being edited. You can test this route with Postman (or your tool of choice) as well.</p>
+            </li>
+            <li>
+                <h4>011-delete-item</h4>
+                <p>DELETE is the last HTTP verb we're adding to the <code>/api/items</code> route &mdash; this branch adds support for deleting items from the database. The route expects the <code>_id</code> property of the item being deleted.</p>
+            </li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>React Front-end Application</h2>
+
+        <p>The React front-end is a bit more of an ongoing experiment. It is functional and solid but I will keep modifying it to explore what I feel are the best ways for me to structure the application.</p>
+
+        <h3>Branches - Stepping Through Code</h3>
+
+        <p>The sequence of branches here is a bit more involved than the steps for the API &mdash; despite wanting to keep things simple, there are more moving parts: React, React Router, Redux, React Redux Middleware, Redux Thunk and asynchronous actions.</p>
+
+        <p>In order to focus on the React code, I'm using the <a href="https://github.com/facebookincubator/create-react-app"><code>create-react-app</code></a> package to setup the build system and keep it hidden behind the <code>node_modules</code> folder so that we can ignore it for now. Customizing build systems is a topic for another day/tutorial.</p>
+
+        <ol>
+            <li>
+                <h4>01-create-react-app-base</h4>
+                <p>This is the initial setup step that includes adding: .gitignore, .editorconfig and the create-react-app base files. I then stripped create-react-app files to minimum and updated formatting to match my styles. Note that I removed the tests for now and may add tests for my code later on.</p>
+            </li>
+            <li>
+                <h4>002-cleanup-plus-sass</h4>
+                <p>In order to use SASS with this project, I added the <a href="">create-react-app-sass<code></code></a> Node package. CSS isn't the focus of this project but that doesn't mean I'm not using a pre-processor to help out. For this project, I'm using a single CSS file and not importing CSS files per React component. Again &mdash; CSS is not the focus of this tutorial.</p>
+            </li>
+            <li>
+                <h4>003-basic-redux</h4>
+                <p>In this branch, I added Redux to manage application data with a single simple reducer for hard-coded items. You can see in the <code>item-reducers.js</code> file the simple data structure for the <code>item</code> data type we're using for this tutorial and described in the notes about the API repo. The Redux code here is kept simple &mdash; the only additional bits I added were to support the Redux dev tools so we can view the Redux state in the Chrome devtools interface.</p>
+                <p>We're also adding the <code>react-redux</code> package which is a layer of abstraction that ultimately helps us simplify our code and connect our React components to the Redux store. However, I do feel that this layer of abstraction does initially trip some developers up. If you find yourself in that boat during this tutorial, I highly suggest looking at Dan Abramov's video tutorial series introducing Redux from the ground up. If you're in a hurry, or not into videos, <a href="https://github.com/dwyl/learn-redux/blob/master/egghead.io_video_tutorial_notes.md">checkout this walkthrough of the video series</a> which is what I used to get up to speed on Redux.</p>
+                <p>In this branch you'll see in <code>App.js</code> a <code>mapStateToProps</code> function that is how we map data in Redux to a particular component. In this case we're mapping the store's <code>items</code> object to the App component's state. This gives App access to the array of items (at <code>items.items</code>) as well as some other properties on the <code>items</code> object that tell us the state of API actions and possible errors that may have happened with that request.</p>
+                <p>The <code>react-redux</code> package has three important functions to watch as you move through this code: <code>mapStateToProps</code>, <code>mapDispatchToProps</code>, and <code>connect</code>. They'll make more sense as you progress through this tutorial.</p>
+            </li>
+            <li>
+                <h4>004-react-router-4</h4>
+                <p>Because of the vast improvements in React Router from version 3 to 4, I decided to use React Router 4 despite it still being in beta. In this branch I've added basic routing to <code>App.js</code> and two new components to display: a <code>Home</code> component for the index and a <code>NoMatch</code> component for unrecognized routes.</p>
+            </li>
+            <li>
+                <h4>005-redux-faking-ajax</h4>
+                <p>This branch introduces some code that will soon be stripped out in order to illustrate how Redux actions and reducers work in a simple fashion. In the <code>componentWillMount</code> lifecycle method of the main <code>App.js</code> file, we make the fake request to load the items and then use setTimeout to fake the completion of that request. The core concept here is that something must trigger the initial loading of items (ultimately from the API) and then after a delay, however minor, the request will complete and the Redux data storage (and ultimately the UI) will need to be updated.</p>
+            </li>
+            <li>
+                <h4>006-added-items-route</h4>
+                <p>There's not much to this branch &mdash; we're just adding the <code>/items</code> route to the React app which is the page on which we'll display the items in the Redux application store.</p>
+            </li>
+            <li>
+                <h4>007-added-header-and-footer</h4>
+                <p>In this branch I added a consistent header and footer to facilitate navigation around the application. The code additions in this branch are straightforward.</p>
+            </li>
+            <li>
+                <h4>008-added-thunk-async-actions</h4>
+                <p>In this branch, things get a little more complex as we're adding the node package <code>redux-thunk</code> which allows us to create Redux actions that are not simple objects but instead are functions. This allows us to use asynchronous requests in Redux.</p>
+
+                <p>As you'll see in the <code>package.json</code> file, we're adding a <code>proxy</code> property to specify the url to the API server. Create-react-app gives us a proxy server so we don't have to worry about CORS which is another convenience of the create-react-app package. Note that because of this update to package.json, you'll need to stop and restart your server.</p>
+
+                <p>We've updated the <code>store.js</code> file to support Redux Thunk. The main work is to support the API call which you'll find in the <code>item-actions.js</code> file. For now I'm using the native <code>fetch</code> command to make API requests although in the next branch  I'll change that to <code>axios</code> to support more browsers and simplify the API request code.</p>
+                <p>Lastly, <code>App.js</code> has been updated to remove the fake calls we setup a while back and make the single call to dispatch the Redux action to get the items from the API.</p>
+            </li>
+            <li>
+                <h4>009-create-items-form</h4>
+                <p>The first change in this branch is you'll see in the package file that I've added <code>axios</code> to handle API requests. Not only does this increase the browser support (native fetch is barely supported at the moment) but it simplifies the request code.</p>
+
+                <p>I added container and component files for creating items. These are not new routes/separate views &mdash; just the addition of a create item form to the <code>/items</code> route/view.</p>
+
+                <p>The Redux files, <code>items-actions.js</code> and <code>items-reducers.js</code>, have been heavily updated to support the additional API call.</p>
+
+                <p>Note that as we move through the forthcoming branches, this code will end up getting refactored a bit to be more modular/reusable. As of this branch, the form works only for creating new items although ultimately we should be able to use this form to edit items as well.</p>
+            </li>
+
+            <li>
+                <h4>010-editable-items-and-item-form</h4>
+                <p>In this branch we refactor the items form so it can be used to edit existing items as well as create new ones. Note that at this point, I'm trying to get functionality built but there will be continual refactoring as we move throughout the next few branches in order to improve the code, DRY it up and make it more modular/reusable. You can see very clearly in <code>ItemForm.js</code> that we've got some repetition to remove.</p>
+
+                <p>For this branch, we're not adding any new routes. The EditableItem component we're building replaces the simple listing of items on the <code>/items</code> route so we can edit items directly on this page. This works because our data structure is so simple. If we had a complex data structure, we'd want to show a view of just a particular item for editing to keep the UI from getting out of hand.</p>
+
+                <p>You'll see now our <code>Item.js</code> component is very simple and just embeds the <code>EditableItems</code> and <code>CreateItem</code> components.</p>
+            </li>
+
+            <li>
+                <h4>011-refactor-itemform</h4>
+                <p>As I noted before, our code could be more modular and DRYer. We're also missing some features (disabling forms when API actions are in-progress, displaying errors when forms are invalid or API requests fail). This branch starts working on solving those problems.</p>
+
+                <p>The first candidate for cleaning up is <code>ItemForm.js</code> and you'll see in this branch how I simplified that code. Additionally, some of the property and function names were too specific to the individual use cases so I made them more generic in the hope of making the code more modular and reusable. You'll see this in <code>CreateItem.js</code> as well as <code>ItemForm.js</code>.</p>
+
+                <p>You'll see in <code>EditableItem.js</code> I've added a function to handle the <code>requestEditItem</code> Redux method which seems unnecessary now but may be used later to handle some validation before making the call to <code>requestEditItem</code>.</p>
+
+                <p>Note that while working on this branch I made an update to the API repo. I added the <code>sleep</code> package to delay API responses so I could test the form disabled state. Without that package, the API requests were so fast that testing disabled state was impossible.</p>
+            </li>
+
+            <li>
+                <h4>012-refactor-itemform</h4>
+                <p>For this branch I've added the ability for the <code>EditableForm</code> to be disabled and to show errors. The main work here was updating the Redux actions and reducers to use generic data properties to specify errors and in-progress loading state which are then passed down through the global Redux store via props to the components that need to react to these state changes.</p>
+            </li>
+        </ol>
+
+        <h3>Moving Forward</h3>
+
+        <p>This repo/walkthrough is still in flux. Next steps are in the <a href="https://github.com/caltemose/base-react/blob/master/README.md">README</a> in the React repo. I'll be using this code to work through some ideas on how I see best structuring a React app and how to keep the Redux and AJAX code versatile, functional, reusable but most importantly, clear and simple.</p>
+    </section>
+</main>
+
+</body>
+</html>
