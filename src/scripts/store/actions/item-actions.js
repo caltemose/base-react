@@ -115,3 +115,40 @@ export const requestEditItem = (_id, name) => dispatch => {
             return dispatch(editItemError(_id, msg))
         })
 }
+
+// ---------------------------------------------------------------- //
+// Actions for Deleting Items in the Database
+// ---------------------------------------------------------------- //
+
+export const DELETE_ITEM_PENDING = 'DELETE_ITEM_PENDING'
+export const DELETE_ITEM_COMPLETE = 'DELETE_ITEM_COMPLETE'
+export const DELETE_ITEM_ERROR = 'DELETE_ITEM_ERROR'
+
+const deleteItemPending = (_id) => ({
+    type: DELETE_ITEM_PENDING,
+    payload: _id
+})
+
+const deleteItemComplete = (item) => ({
+    type: DELETE_ITEM_COMPLETE,
+    payload: item
+})
+
+const deleteItemError = (_id, error) => ({
+    type: DELETE_ITEM_ERROR,
+    payload: { _id, error }
+})
+
+export const requestDeleteItem = (_id) => dispatch => {
+    dispatch(deleteItemPending(_id))
+
+    return axios.delete(`/api/items/${_id}`)
+        .then(response => {
+            return dispatch(deleteItemComplete(_id))
+        })
+        .catch(error => {
+            const msg = getErrorFromErrorResponse(error, 'Item could not be deleted')
+            return dispatch(deleteItemError(_id, msg))
+        })
+}
+

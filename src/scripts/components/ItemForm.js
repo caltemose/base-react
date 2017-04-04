@@ -5,17 +5,24 @@ import classnames from 'classnames'
 
 class ItemForm extends Component {
     static propTypes = {
+        id: PropTypes.string,
         defaultValue: PropTypes.string,
         onSubmit: PropTypes.func.isRequired,
+        onDelete: PropTypes.func,
         error: PropTypes.string,
         disabled: PropTypes.bool,
-        buttonText: PropTypes.string
+        buttonText: PropTypes.string,
+        showDelete: PropTypes.bool,
     }
 
     static defaultProps = {
+        id: undefined,
         defaultValue: '',
+        error: undefined,
         disabled: false,
-        buttonText: 'Submit'
+        buttonText: 'Submit',
+        onDelete: () => {},
+        showDelete: false
     }
 
     handleSubmit = (event) => {
@@ -23,12 +30,18 @@ class ItemForm extends Component {
         this.props.onSubmit(this.input.value)
     }
 
+    handleDelete = (event) => {
+        event.preventDefault()
+        this.props.onDelete(this.props.id)
+    }
+
     render () {
         const {
             defaultValue,
             error,
             disabled,
-            buttonText
+            buttonText,
+            showDelete
         } = this.props
 
         const formClasses = classnames({
@@ -50,6 +63,13 @@ class ItemForm extends Component {
                     />
                 </label>
                 <button type="submit">{buttonText}</button>
+
+                {showDelete &&
+                    <button 
+                        className="item-delete-button"
+                        onClick={this.handleDelete}
+                    >Delete Item</button>}
+
                 {error &&
                     <span className="input-message error">{error}</span>}
             </form>

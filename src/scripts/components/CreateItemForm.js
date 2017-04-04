@@ -1,3 +1,4 @@
+// UNUSED COMPONENT
 import React, { PropTypes, Component } from 'react'
 
 class CreateItemForm extends Component {
@@ -19,6 +20,7 @@ class CreateItemForm extends Component {
     }
 
     render () {
+        console.warn('CreateItemForm Component is DEPRECATED!')
         const classes = this.props.creatingItem ? 'item-form disabled' : 'item-form'
         return (
             <form className={classes} onSubmit={this.handleSubmit}>

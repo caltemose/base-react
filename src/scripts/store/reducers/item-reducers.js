@@ -7,7 +7,8 @@ import {
     CREATE_ITEM_COMPLETE,
     EDIT_ITEM_PENDING,
     EDIT_ITEM_COMPLETE,
-    EDIT_ITEM_ERROR
+    EDIT_ITEM_ERROR,
+    DELETE_ITEM_COMPLETE
 
 } from '../actions/actions'
 
@@ -104,6 +105,12 @@ const items = (state = defaultState, action) => {
             return {
                 ...state,
                 items: state.items.map(i => item(i, action))
+            }
+        
+        case DELETE_ITEM_COMPLETE:
+            return {
+                ...state,
+                items: state.items.filter(i => i._id !== action.payload)
             }
 
         default:
