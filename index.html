@@ -141,6 +141,11 @@
                 <h4>011-delete-item</h4>
                 <p>DELETE is the last HTTP verb we're adding to the <code>/api/items</code> route &mdash; this branch adds support for deleting items from the database. The route expects the <code>_id</code> property of the item being deleted.</p>
             </li>
+
+            <li>
+                <h4>012-delete-item-update</h4>
+                <p>Updated the delete route to use a URL fragment as the <code>_id</code> of the item to delete instead of looking for the parameter in the request body.</p>
+            </li>
         </ol>
     </section>
 
@@ -230,6 +235,11 @@
             <li>
                 <h4>012-refactor-itemform</h4>
                 <p>For this branch I've added the ability for the <code>EditableForm</code> to be disabled and to show errors. The main work here was updating the Redux actions and reducers to use generic data properties to specify errors and in-progress loading state which are then passed down through the global Redux store via props to the components that need to react to these state changes.</p>
+            </li>
+
+            <li>
+                <h4>013-delete-item</h4>
+                <p>Added basic delete item functionality to include a new button in the ItemForm component and the minimal redux actions/reducers. This is still a bit happy path since there is no display to the end-user if the call fails.</p>
             </li>
         </ol>
 
