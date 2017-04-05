@@ -24,10 +24,10 @@ The numbers below correspond to branch names (ie, Note 1 corresponds to branch 0
 12. Updated edit-item Redux actions and reducers so EditableItem form can handle disabling (when item is being saved) and error display (when item update API calls return errors).
 13. Added delete item functionality (new button in ItemForm, updated Redux actions/reducers).
 14. Refactored ItemForm and CreateItem, EditableItem wrappers, to use a controlled input for ItemForm. Input for CreateItem now empties when a new item is created successfully.
+15. Restructured the files into an organization I prefer (quasi-logical domain). Totally subjective here.
 
 ## Next Steps
 
-- Organize by logical domain instead of `components` and `containers`
 - Determine solution to re-apply the initial value to ItemForm if an attempt is made to save the item with an illegal value (empty, duplicate, whatever).
 - Make sure with Creating Items when they return errors the input retains the illegal value
 - Consider changing data structure to use byId/allIds pattern [see Redux docs on normalizing state](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html)

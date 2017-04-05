@@ -5,7 +5,10 @@ const Home = () => (
     <main>
         <h1>Home</h1>
         <p>Hi! I'm the Home component.</p>
-        <Link to="/items">Items</Link>
+        <p>
+            <a href="https://github.com/caltemose/base-react">Read documentation about this project on Github.</a>
+        </p>
+        <Link to="/items">View all Items</Link>
     </main>
 )
 

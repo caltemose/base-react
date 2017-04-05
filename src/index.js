@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Root from './scripts/containers/Root'
+import Root from './scripts/Root'
 import configureStore from './scripts/store/store'
 import './styles.css'
 

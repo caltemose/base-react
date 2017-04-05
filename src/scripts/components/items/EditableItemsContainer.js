@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import EditableItemsList from '../components/EditableItemsList'
+import EditableItemsList from './EditableItemsList'
 
-const EditableItems = ({ items }) => (
+const EditableItemsContainer = ({ items }) => (
     <EditableItemsList items={items} />
 )
 
@@ -10,4 +10,4 @@ const mapStateToProps = (state) => ({
     items: state.items.items
 })
 
-export default connect(mapStateToProps)(EditableItems)
+export default connect(mapStateToProps)(EditableItemsContainer)

@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { requestEditItem, requestDeleteItem } from '../store/actions/actions'
-import ItemForm from '../components/ItemForm'
+import { requestEditItem, requestDeleteItem } from '../../store/actions/actions'
+import ItemForm from './ItemForm'
 
-class EditableItem extends Component {
+class EditableItemContainer extends Component {
     static propTypes = {
         item: PropTypes.object.isRequired,
         requestEditItem: PropTypes.func.isRequired,
@@ -50,4 +50,4 @@ const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = { requestEditItem, requestDeleteItem }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditableItem)
+export default connect(mapStateToProps, mapDispatchToProps)(EditableItemContainer)

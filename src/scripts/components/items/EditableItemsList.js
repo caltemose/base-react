@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import EditableItem from '../containers/EditableItem'
+import EditableItem from './EditableItemContainer'
 
 const EditableItemsList = ({ items }) => (
     <ul className="list-unstyled">

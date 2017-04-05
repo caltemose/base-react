@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { fetchItems } from '../store/actions/actions'
-import Home from '../components/Home'
-import NoMatch from '../components/NoMatch'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Items from '../components/Items'
-import FlashMessage from '../components/FlashMessage'
-
-const delay = 1000
+import { fetchItems } from './store/actions/actions'
+import Home from './routes/Home'
+import NoMatch from './routes/NoMatch'
+import Items from './routes/Items'
+import Header from './components/global/Header'
+import Footer from './components/global/Footer'
+import FlashMessage from './components/global/FlashMessage'
 
 class App extends Component {
 
@@ -35,7 +33,7 @@ class App extends Component {
                     <Footer />
 
                     {this.props.items.itemsLoading &&
-                        <FlashMessage msg={`loading items with ${delay}ms delay`} />}
+                        <FlashMessage msg={"loading items"} />}
                     {this.props.items.itemsError &&
                         <FlashMessage msg={this.props.items.itemsError} error={true} />}
                 </div>

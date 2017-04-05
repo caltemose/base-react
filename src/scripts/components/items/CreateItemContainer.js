@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { requestCreateItem } from '../store/actions/actions'
-import ItemForm from '../components/ItemForm'
+import { requestCreateItem } from '../../store/actions/actions'
+import ItemForm from './ItemForm'
 
 
-class CreateItem extends Component {
+class CreateItemContainer extends Component {
     static propTypes = {
         creatingItem: PropTypes.bool,
         createItemError: PropTypes.string
@@ -68,4 +68,4 @@ const mapDispatchToProps = {
     requestCreateItem
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateItem)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateItemContainer)
