@@ -1,35 +1,49 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { requestEditItem, requestDeleteItem } from '../store/actions/actions'
 import ItemForm from '../components/ItemForm'
 
-const EditableItem = ({ item, requestEditItem, requestDeleteItem }) => {
-    const handleSubmit = (value) => {
-        requestEditItem(item._id, value)
+class EditableItem extends Component {
+    static propTypes = {
+        item: PropTypes.object.isRequired,
+        requestEditItem: PropTypes.func.isRequired,
+        requestDeleteItem: PropTypes.func.isRequired
     }
 
-    const handleDelete = (id) => {
-        requestDeleteItem(id)
+    state = {
+        value: this.props.item.name || ''
     }
 
-    return (
-        <ItemForm
-            id={item._id}
-            defaultValue={item.name}
-            onSubmit={handleSubmit}
-            onDelete={handleDelete}
-            buttonText="Edit Item"
-            error={item.error}
-            disabled={item.pending}
-            showDelete={true}
-        />
-    )
-}
+    handleChange = (value) => {
+        if (value !== this.state.value) {
+            this.setState({ value })
+        }
+    }
 
-EditableItem.propTypes = {
-    item: PropTypes.object.isRequired,
-    requestEditItem: PropTypes.func.isRequired,
-    requestDeleteItem: PropTypes.func.isRequired
+    handleSubmit = () => {
+        this.props.requestEditItem(this.props.item._id, this.state.value)
+    }
+
+    handleDelete = () => {
+        this.props.requestDeleteItem(this.props.item._id)
+    }
+
+    render () {
+        const { item } = this.props
+        return (
+            <ItemForm
+                id={item._id}
+                value={this.state.value}
+                onChange={this.handleChange}
+                onSubmit={this.handleSubmit}
+                onDelete={this.handleDelete}
+                buttonText="Edit Item"
+                error={item.error}
+                disabled={item.pending}
+                showDelete={true}
+            />
+        )
+    }
 }
 
 const mapStateToProps = (state) => ({})

@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 
-// TODO empty the input when onCreateItem succeeds
-
 class ItemForm extends Component {
     static propTypes = {
-        id: PropTypes.string,
-        defaultValue: PropTypes.string,
+        value: PropTypes.string,
+        onChange: PropTypes.func.isRequired,
         onSubmit: PropTypes.func.isRequired,
         onDelete: PropTypes.func,
         error: PropTypes.string,
@@ -16,28 +14,32 @@ class ItemForm extends Component {
     }
 
     static defaultProps = {
-        id: undefined,
-        defaultValue: '',
+        value: '',
+        onDelete: () => {},
         error: undefined,
         disabled: false,
         buttonText: 'Submit',
-        onDelete: () => {},
         showDelete: false
+    }
+
+    handleChange = (event) => {
+        event.preventDefault()
+        this.props.onChange(event.target.value)
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
-        this.props.onSubmit(this.input.value)
+        this.props.onSubmit()
     }
 
     handleDelete = (event) => {
         event.preventDefault()
-        this.props.onDelete(this.props.id)
+        this.props.onDelete()
     }
 
     render () {
         const {
-            defaultValue,
+            value,
             error,
             disabled,
             buttonText,
@@ -58,8 +60,8 @@ class ItemForm extends Component {
                         type="text"
                         placeholder="item name here"
                         size="25"
-                        defaultValue={defaultValue}
-                        ref={node => this.input = node}
+                        value={value}
+                        onChange={this.handleChange}
                     />
                 </label>
                 <button type="submit">{buttonText}</button>
