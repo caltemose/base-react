@@ -25,6 +25,7 @@ The numbers below correspond to branch names (ie, Note 1 corresponds to branch 0
 13. Added delete item functionality (new button in ItemForm, updated Redux actions/reducers).
 14. Refactored ItemForm and CreateItem, EditableItem wrappers, to use a controlled input for ItemForm. Input for CreateItem now empties when a new item is created successfully.
 15. Restructured the files into an organization I prefer (quasi-logical domain). Totally subjective here.
+16. Added `getItems()` selector to Redux store so components to not have to access nested state objects directly.
 
 ## Next Steps
 
