@@ -2,6 +2,8 @@
 
 A React-based front-end to connect to base-mongo-express. Part of a training repository collection. The API/backend is in the [base-mongo-express repository](https://github.com/caltemose/base-mongo-express).
 
+Documentation of the overall approach and a walkthrough of the branches of this repo and the MongoDB/Express repo are available at [https://caltemose.github.io/base-react/](https://caltemose.github.io/base-react/).
+
 ## Branch Notes
 
 *Note that create-react-app creates a directory - consider this before creating a git repository.*
