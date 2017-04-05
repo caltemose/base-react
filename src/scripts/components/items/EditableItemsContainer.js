@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { getItems } from '../../store/store'
 import EditableItemsList from './EditableItemsList'
 
 const EditableItemsContainer = ({ items }) => (
@@ -7,7 +8,7 @@ const EditableItemsContainer = ({ items }) => (
 )
 
 const mapStateToProps = (state) => ({
-    items: state.items.items
+    items: getItems(state)
 })
 
 export default connect(mapStateToProps)(EditableItemsContainer)

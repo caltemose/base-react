@@ -120,6 +120,10 @@ const items = (state = defaultState, action) => {
 
 export default items
 
+export const getItems = ({ items }) => items.items
+
+
+
 // comment out everything below to disable testing
 /*
 import expect from 'expect'

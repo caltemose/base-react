@@ -5,3 +5,5 @@ import items from './item-reducers'
 const reducers = combineReducers({ items })
 
 export default reducers
+
+export * from './item-reducers'

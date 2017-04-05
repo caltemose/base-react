@@ -16,3 +16,5 @@ const configureStore = () => {
 }
 
 export default configureStore
+
+export * from './reducers/reducers'
