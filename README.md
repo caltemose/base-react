@@ -24,6 +24,8 @@ The numbers below correspond to branch names (ie, Note 1 corresponds to branch 0
 
 ## Next Steps
 
-- Determine solution to empty the ItemForm after a new item is created.
-- Determine solution to re-apply the initial value to ItemForm if an attempt is made to save the item with an empty value.
+- Determine solution to empty the ItemForm after a new item is created. (DONE)
+- Determine solution to re-apply the initial value to ItemForm if an attempt is made to save the item with an illegal value (empty, duplicate, whatever).
+- Make sure with Creating Items when they return errors the input retains the illegal value
+- Organize by logical domain instead of `components` and `containers`
 - Consider changing data structure to use byId/allIds pattern [see Redux docs on normalizing state](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html)

@@ -7,8 +7,13 @@
         opacity: 0.25
 
     input
-        display: inline-block
+        display: block
         margin-right: 0.5em
+        margin-bottom: 0.5em
+        width: 90%
+        @media (min-width: 670px)
+            display: inline-block
+            width: 20em
 
 .form-message
     display: block
@@ -32,3 +37,6 @@
 
     &.error
         color: $errorColor
+
+.item-delete-button
+    margin-left: 0.5em
