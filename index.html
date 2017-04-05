@@ -31,10 +31,18 @@
         p {
             line-height: 125%;
         }
+        pre {
+            display: block;
+            padding: 0.5em;
+            background-color: rgb(240, 240, 255);
+        }
         code {
             font-size: 1.1em;
             padding: 0 0.25em;
             background-color: rgb(240, 240, 255);
+        }
+        pre > code {
+            padding: 0;
         }
         a {
             padding: 0 0.25em;
@@ -153,12 +161,10 @@
 
         <p>As noted before, the data structure for <code>items</code> is purposefully simple:</p>
 
-        <pre>
-<code>{
+<pre><code>{
     _id: "5886b9ea94361c2fd8f39f9e",
     name: "An Item"
-}</code>
-        </pre>
+}</code></pre>
 
         <p>In order to extend the React part of this exercise and make it more interesting, you'll likely want to work with more complex data structures than this one. As this tutorial evolves, it's likely I'll be adding another Mongo collection with a more complex data structure and I suggest that you do to. More to come...</p>
     </section>
