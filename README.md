@@ -21,11 +21,11 @@ The numbers below correspond to branch names (ie, Note 1 corresponds to branch 0
 11. Refactored ItemForm component to be more generic and updated EditableItem and CreateItem accordingly. Disabled state and error state functional for CreateItem usage but not for ItemForm which requires enhancing the Redux code to provide data for items being saved and possessing errors (from API calls). NOTE: To help test disabled state of the ItemForm, I added the [sleep package](https://www.npmjs.com/package/sleep) to the API repo on the `/api/items` POST route to delay the response since without a delay the request happens so fast you cannot easily test the disabled state.
 12. Updated edit-item Redux actions and reducers so EditableItem form can handle disabling (when item is being saved) and error display (when item update API calls return errors).
 13. Added delete item functionality (new button in ItemForm, updated Redux actions/reducers).
+14. Refactored ItemForm and CreateItem, EditableItem wrappers, to use a controlled input for ItemForm. Input for CreateItem now empties when a new item is created successfully.
 
 ## Next Steps
 
-- Determine solution to empty the ItemForm after a new item is created. (DONE)
+- Organize by logical domain instead of `components` and `containers`
 - Determine solution to re-apply the initial value to ItemForm if an attempt is made to save the item with an illegal value (empty, duplicate, whatever).
 - Make sure with Creating Items when they return errors the input retains the illegal value
-- Organize by logical domain instead of `components` and `containers`
 - Consider changing data structure to use byId/allIds pattern [see Redux docs on normalizing state](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html)
