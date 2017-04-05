@@ -259,6 +259,11 @@
                 <h4>013-delete-item</h4>
                 <p>Added basic delete item functionality to include a new button in the ItemForm component and the minimal redux actions/reducers. This is still a bit happy path since there is no display to the end-user if the call fails.</p>
             </li>
+
+            <li>
+                <h4>014-controlled-inputs</h4>
+                <p>Refactored the CreateItem and EditableItem components so they control the input value in ItemInput. This made it easier (and more best-practice focused) to wipe the input value when a new item is created, thus improving the UX. This will also make it easier to reset an input value when an illegal value is submitted.</p>
+            </li>
         </ol>
 
         <h3>Moving Forward</h3>
