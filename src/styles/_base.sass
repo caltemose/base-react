@@ -11,6 +11,10 @@ h2 > small
 a
     color: $linkColor
 
+    &:hover, &:focus
+        text-decoration: none
+        background-color: lighten($linkColor, 63%)
+
 nav
     display: inline-block
 
@@ -22,9 +26,9 @@ nav
 
         &:last-child
             border-right: none
-
+        
         &:hover, &:focus
-            text-decoration: none
+            background-color: transparent
 
 main
     padding: 1em 1em 4em
