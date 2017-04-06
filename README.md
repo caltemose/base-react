@@ -26,9 +26,9 @@ The numbers below correspond to branch names (ie, Note 1 corresponds to branch 0
 14. Refactored ItemForm and CreateItem, EditableItem wrappers, to use a controlled input for ItemForm. Input for CreateItem now empties when a new item is created successfully.
 15. Restructured the files into an organization I prefer (quasi-logical domain). Totally subjective here.
 16. Added `getItems()` selector to Redux store so components to not have to access nested state objects directly.
+17. When edit item requests fail (empty name, duplicate name), the ItemForm input value is reset to the previous legal value.
 
 ## Next Steps
 
-- Determine solution to re-apply the initial value to ItemForm if an attempt is made to save the item with an illegal value (empty, duplicate, whatever).
 - Make sure with Creating Items when they return errors the input retains the illegal value
 - Consider changing data structure to use byId/allIds pattern [see Redux docs on normalizing state](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html)
