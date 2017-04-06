@@ -275,6 +275,21 @@
                 <h4>014-controlled-inputs</h4>
                 <p>Refactored the CreateItem and EditableItem components so they control the input value in ItemInput. This made it easier (and more best-practice focused) to wipe the input value when a new item is created, thus improving the UX. This will also make it easier to reset an input value when an illegal value is submitted.</p>
             </li>
+
+            <li>
+                <h4>015-restructure-files</h4>
+                <p>Organizing the scripts into <code>components</code> and <code>containers</code> folders (organization by kind) isn't a practice I'd normally follow (it breaks down quickly when your project isn't tiny) so I've changed to more of a logical domain style where code is organized more by what feature it concerns and/or by component. Work in progress.</p>
+            </li>
+
+            <li>
+                <h4>016-items-selector</h4>
+                <p>Added the first selector in Redux for retrieving the array of items. This way, various components do not have to access items in the Redux data object directly which is more flexible and bullet-proof long-term because the logic behind accessing those items can change without affecting the components that use the items data.</p>
+            </li>
+
+             <li>
+                <h4>017-handle-edit-item-error</h4>
+                <p>When an item is edited, the API will return an error if a blank name is submitted or if a name that is a duplicate of a different item is submitted. In these cases the text input for that item is reverted back to the original value. Whether or not this is ideal UX is up for discussion but it allowed for additional feature development thereby improving the code and increasing the opportunity for learning.</p>
+            </li>
         </ol>
 
         <h3>Moving Forward</h3>
