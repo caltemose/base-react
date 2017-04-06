@@ -14,6 +14,14 @@ class EditableItemContainer extends Component {
         value: this.props.item.name || ''
     }
 
+    componentWillReceiveProps (nextProps) {
+        // if there's an error editing the name, 
+        // reset the input's value back to previous legal name value
+        if (nextProps.item.error) {
+            this.setState({ value: nextProps.item.name })
+        }
+    }
+
     handleChange = (value) => {
         if (value !== this.state.value) {
             this.setState({ value })
